@@ -1,9 +1,18 @@
-
-
-
-      
-      <%= @cocktail.name  %>
+<%= @cocktail.name  %>
  <%= link_to cocktail_path(@cocktail), method: :delete, data: { confirm: "Are you sure?" } do %>
-              <i class="fa fa-trash"><span class="ml-3">Delete Cocktail</span> </i>
-            <% end %>
+  <i class="fa fa-trash"><span class="ml-3">Delete Cocktail</span> </i>
+<% end %>
+
+<div>
+    <ul>
+      <% @cocktail.doses.each do |dose| %>
+        <li><span><%=dose.ingredient.name %>  :  <%= dose.description %>        </li>
+        <% end %>
+    </ul>
+</div>
+<div>
+  <%= link_to new_cocktail_dose_path(@cocktail) do %>
+  <i class="fas fa-glass-martini mb-3 ">Add new ingredient</i>
+  <% end %>
+</div>
         
