@@ -1,8 +1,14 @@
-<h1>Add A New Cocktail</h1>
+<h1 class="text-center text-primary" style="text-shadow: 1px 1px peachpuff">Add A New Cocktail</h1>
 
+<div class="container text-white">
 
 <%= simple_form_for @cocktail do |f| %>
     <%= f.input :name %>
+     <%= f.input :photo, as: :file, input_html: { class: " text-info " } %>
     <%= f.submit "Add cocktail", class: "btn btn-danger" %>
     <%= f.button :button, 'Cancel', type: :reset, class: 'btn btn-primary' %>
 <% end%>
+
+<hr />
+<%= link_to "Back to Index", root_path, class: "btn btn-success" %>
+</div>

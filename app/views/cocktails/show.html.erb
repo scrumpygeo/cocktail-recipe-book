@@ -1,23 +1,68 @@
-<%= @cocktail.name  %>
- <%= link_to cocktail_path(@cocktail), method: :delete, data: { confirm: "Are you sure?" } do %>
-  <i class="fa fa-trash"><span class="ml-3">Delete Cocktail</span> </i>
-<% end %>
 
-<div>
-    <ul>
+<div class="container min-vh-100">
+
+  <h2 class="text-center my-3 pb-4 text-white font-weight-bold"><%=  @cocktail.name %></h2>
+
+  <div class="row pt-3 my-3">
+
+    <div class="col-md-6"  align="center">
+      <% if @cocktail.photo.attached? %>
+      <div class="card-img">
+          <%= cl_image_tag @cocktail.photo.key, height: 300, width: 400, crop: :fill %>
+          </div>
+      <% else %>
+      <div class="card-img">
+        <img  src="https://source.unsplash.com/400x300/?cocktail&rand=<%= rand( 9999) %>"  height="300" width="400"  alt="cocktail image">
+      </div>
+      <% end %>
+
+    </div>
+
+<%# photo above here %>
+
+  <div class="col-md-6"  align="center"  >
+      <h2 style="color: tomato">Ingredients</h2>
+    <div  class="col-md-8 offset-md-1 " >
+
+      <ul class="list-unstyled mt-3 ">
       <% @cocktail.doses.each do |dose| %>
-        <li><span><%=dose.ingredient.name %>  :  <%= dose.description %>        
-                   <%= link_to dose_path(dose), method: :delete, data: { confirm: "Are you sure?" } do %>
-              <i class="fa fa-trash destroy_dose "> </i>
+        <li><span class="float-left text-info"><%=dose.ingredient.name %></span>    <span class="text-warning float-right "> <%= dose.description %> 
+            <%= link_to dose_path(dose), method: :delete, data: { confirm: "Are you sure?" } do %>
+              <i class="fa fa-trash destroy_dose  pl-3 text-warning "> </i>
             <% end %>
-        
+           </span>
         </li>
         <% end %>
-    </ul>
+      </ul>
+
+    </div> 
+  </div>
+
+<%# end of list of ingredients  end of row div is below %>
 </div>
-<div>
-  <%= link_to new_cocktail_dose_path(@cocktail) do %>
-  <i class="fas fa-glass-martini mb-3 ">Add new ingredient</i>
-  <% end %>
-</div>
+<%# delete cocktail, back to list and add new ingredient below %>
+<footer class="fixed-bottom">
+<div class="d-flex justify-content-around mb-3 pb-3 align-items-end">
         
+      <div>
+          <%= link_to root_path do %>
+            <i class="fa fa-history mb-3 text-info"><span class="ml-3">Back to list</span></i>
+          <% end %>
+        </div>
+
+       <div> 
+          <%= link_to cocktail_path(@cocktail), method: :delete, data: { confirm: "Are you sure?" } do %>
+              <i class="fa fa-trash mb-3 pr-1 text-warning"><span class="ml-3">Delete Cocktail</span> </i>
+            <% end %>
+        </div>
+
+        <div>
+          <%= link_to new_cocktail_dose_path(@cocktail) do %>
+          <i class="fas fa-glass-martini mb-3 text-success"><span class="ml-3">Add new ingredient</span></i>
+          <% end %>
+        </div>
+  </div>
+</footer>
+
+</div>
+
